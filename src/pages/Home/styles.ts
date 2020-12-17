@@ -15,7 +15,16 @@ export const Container = styled.View`
 
 export const ViewHeader = styled.View`
   align-items: center;
-  margin-top: ${responsiveSize(40)}px;
+  margin-top: ${responsiveSize(20)}px;
+  width: 100%;
+`;
+
+export const ViewCard = styled.View`
+  /* align-content: space-between;
+  flex-direction: column; */
+  align-items: center;
+  width: 100%;
+  margin: ${responsiveSize(50)}px 0 ${responsiveSize(20)}px 0;
 `;
 
 export const TextCity = styled.Text<ITextCity>`
@@ -29,7 +38,7 @@ export const TextCity = styled.Text<ITextCity>`
 export const TextDegrees = styled.Text`
   font-family: 'RobotoSlab-ExtraBold';
   font-size: ${responsiveSize(70)}px;
-  color: ${colors.LightPrimary};
+  color: ${colors.OrangePrimary};
   margin: ${responsiveSize(30)}px 0;
 `;
 
@@ -43,10 +52,17 @@ export const ViewRow = styled.View`
   flex-direction: row;
 `;
 
-export const IconPoint = styled(AwesomeIcon).attrs({
+export const Icon = styled(AwesomeIcon).attrs({
   size: responsiveSize(25),
   color: colors.LightPrimary,
 })`
   margin-right: ${responsiveSize(10)}px;
   opacity: 0.6;
+`;
+
+export const ButtomRefresh = styled.TouchableOpacity.attrs({
+  activeOpacity: 0.6,
+})`
+  align-self: flex-end;
+  margin-right: ${responsiveSize(15)}px;
 `;
