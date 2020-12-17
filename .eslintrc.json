@@ -47,7 +47,10 @@
   },
   "settings": {
     "import/resolver": {
-      "typescript": {}
+      "typescript": {},
+      "babel-plugin-root-import": {
+        "rootPathSuffix": "src"
+      }
     }
   }
 }

@@ -3,6 +3,8 @@ import AwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
 import { responsiveSize } from '../../styles/responsive';
 import colors from '../../styles/colors';
+import IconCustom from '../../components/IconCustom';
+import iconCity from '../../assets/city.svg';
 
 interface IText {
   isDescription?: boolean;
@@ -43,10 +45,11 @@ export const IconPoint = styled(AwesomeIcon).attrs({
   margin-bottom: ${responsiveSize(20)}px;
 `;
 
-export const IconCity = styled.Image`
-  height: ${responsiveSize(120)}px;
-  width: ${responsiveSize(120)}px;
-`;
+export const IconCity = styled(IconCustom).attrs({
+  xml: iconCity,
+  width: responsiveSize(120),
+  height: responsiveSize(120),
+})``;
 
 export const ViewButtom = styled.View`
   margin-bottom: ${responsiveSize(20)}px;

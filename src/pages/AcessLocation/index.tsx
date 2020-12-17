@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 import Buttom from '../../components/Buttom';
-import LogoCity from '../../assets/paisagem-urbana.png';
 
 import {
   Container,
@@ -33,7 +32,8 @@ const AcessLocation: React.FC = () => {
 
         <ViewIcons>
           <IconPoint name="map-marker" />
-          <IconCity source={LogoCity} />
+
+          <IconCity />
         </ViewIcons>
 
         <ViewButtom>
