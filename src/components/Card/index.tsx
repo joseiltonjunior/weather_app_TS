@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Container, TitleCard, ViewText } from './styles';
+import { Container, TextCard, ViewText } from './styles';
 
 interface ICard {
   TextTitle?: string;
@@ -12,8 +12,8 @@ const Card: React.FC<ICard> = ({ TextTitle, TextInfo, isMarginBottom }) => {
   return (
     <Container isMarginBottom={isMarginBottom}>
       <ViewText>
-        <TitleCard>{TextTitle}</TitleCard>
-        <TitleCard>{TextInfo}</TitleCard>
+        <TextCard>{TextTitle}</TextCard>
+        <TextCard>{TextInfo}</TextCard>
       </ViewText>
     </Container>
   );

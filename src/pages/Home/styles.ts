@@ -13,6 +13,12 @@ export const Container = styled.View`
   align-items: center;
 `;
 
+export const ContainerLoading = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const ViewHeader = styled.View`
   align-items: center;
   margin-top: ${responsiveSize(20)}px;
@@ -20,8 +26,6 @@ export const ViewHeader = styled.View`
 `;
 
 export const ViewCard = styled.View`
-  /* align-content: space-between;
-  flex-direction: column; */
   align-items: center;
   width: 100%;
   margin: ${responsiveSize(50)}px 0 ${responsiveSize(20)}px 0;
@@ -46,6 +50,13 @@ export const TextDate = styled.Text`
   font-family: 'RobotoSlab-Medium';
   font-size: ${responsiveSize(18)}px;
   color: ${colors.LightPrimary};
+`;
+
+export const TextLoading = styled.Text`
+  font-family: 'RobotoSlab-Medium';
+  font-size: ${responsiveSize(18)}px;
+  color: ${colors.LightPrimary};
+  margin-top: ${responsiveSize(18)}px;
 `;
 
 export const ViewRow = styled.View`
