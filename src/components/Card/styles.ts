@@ -1,5 +1,4 @@
 import styled from 'styled-components/native';
-// import AwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
 import colors from '../../styles/colors';
 import { responsiveSize } from '../../styles/responsive';
@@ -25,8 +24,9 @@ export const ViewText = styled.View`
   justify-content: space-between;
 `;
 
-export const TitleCard = styled.Text`
+export const TextCard = styled.Text`
   font-family: 'RobotoSlab-Bold';
   font-size: ${responsiveSize(15)}px;
   align-self: flex-end;
+  color: ${colors.DarkGreyPrimary};
 `;

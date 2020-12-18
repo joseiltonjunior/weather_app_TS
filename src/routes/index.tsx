@@ -15,8 +15,8 @@ const AppRoutes: React.FC = () => (
       cardStyle: { backgroundColor: colors.DarkGreyPrimary },
     }}
   >
-    <App.Screen name="AcessLocation" component={AcessLocation} />
     <App.Screen name="Home" component={Home} />
+    <App.Screen name="AcessLocation" component={AcessLocation} />
   </App.Navigator>
 );
 
