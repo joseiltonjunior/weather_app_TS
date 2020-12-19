@@ -7,10 +7,16 @@ interface IContainer {
   isMarginBottom?: boolean;
 }
 
+interface IText {
+  isValue?: boolean;
+}
+
 export const Container = styled.View<IContainer>`
   height: ${responsiveSize(50)}px;
   width: 90%;
-  background: ${colors.OrangePrimary};
+  /* background: ${colors.LightPrimary}; */
+  border-color: ${colors.DarkPlaceholders};
+  border-width: 1px;
   border-radius: ${responsiveSize(25)}px;
   padding: 0 ${responsiveSize(25)}px;
   justify-content: center;
@@ -24,9 +30,10 @@ export const ViewText = styled.View`
   justify-content: space-between;
 `;
 
-export const TextCard = styled.Text`
+export const TextCard = styled.Text<IText>`
   font-family: 'RobotoSlab-Bold';
   font-size: ${responsiveSize(15)}px;
   align-self: flex-end;
-  color: ${colors.DarkGreyPrimary};
+  color: ${props =>
+    props.isValue ? colors.LightPrimary : colors.OrangePrimary};
 `;

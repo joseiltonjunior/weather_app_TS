@@ -50,6 +50,7 @@ export const TextDate = styled.Text`
   font-family: 'RobotoSlab-Medium';
   font-size: ${responsiveSize(18)}px;
   color: ${colors.LightPrimary};
+  text-transform: capitalize;
 `;
 
 export const TextLoading = styled.Text`
