@@ -2,12 +2,12 @@
 /* eslint-disable import/no-duplicates */
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { PERMISSIONS, RESULTS, check } from 'react-native-permissions';
 import { ActivityIndicator, ScrollView } from 'react-native';
 import { format } from 'date-fns';
 import { pt } from 'date-fns/locale';
 import Geolocation from '@react-native-community/geolocation';
 import { BackHandler } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import colors from '../../styles/colors';
 import api from '../../services/consultWeatherApi';
@@ -53,7 +53,6 @@ const Home: React.FC = () => {
   const navigation = useNavigation();
 
   const GetCurrentWeather = useCallback(() => {
-    setLoading(true);
     Geolocation.getCurrentPosition(
       async ({ coords: { latitude, longitude } }) => {
         const { data } = await api.get(
@@ -82,21 +81,20 @@ const Home: React.FC = () => {
         setModalFalied(true);
       },
       {
-        timeout: 20000,
+        timeout: 10000,
       },
     );
   }, []);
 
-  const CheckLocation = useCallback(() => {
+  const CheckLocation = useCallback(async () => {
     setLoading(true);
-    check(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION).then(res => {
-      if (res === RESULTS.BLOCKED || res === RESULTS.DENIED) {
-        navigation.navigate('AcessLocation');
-      } else {
-        GetCurrentWeather();
-      }
-    });
-  }, [GetCurrentWeather, navigation]);
+    const value = await AsyncStorage.getItem('acessLocation');
+    if (value !== null) {
+      GetCurrentWeather();
+    } else {
+      navigation.navigate('AcessLocation');
+    }
+  }, [navigation, GetCurrentWeather]);
 
   function FormatKelvin(kelvin: number) {
     return parseInt('10', kelvin - 273.15);
