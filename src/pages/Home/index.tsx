@@ -3,33 +3,32 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { PERMISSIONS, RESULTS, check } from 'react-native-permissions';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, ScrollView } from 'react-native';
 import { format } from 'date-fns';
 import { pt } from 'date-fns/locale';
 import Geolocation from '@react-native-community/geolocation';
+import { BackHandler } from 'react-native';
 
 import colors from '../../styles/colors';
 import api from '../../services/consultWeatherApi';
 import CardInfo from '../../components/Card';
 import Modal from '../../components/ModalCustom';
+import Header from './Header';
 
 import {
   Container,
   ContainerLoading,
-  ViewHeader,
   ViewCard,
-  TextCity,
-  TextDegrees,
   TextLoading,
-  TextDate,
-  ViewRow,
-  Icon,
-  ButtomRefresh,
+  ButtomModalButtom,
+  TitleContent,
+  LineView,
 } from './styles';
 
 interface IDate {
   dayName?: string;
   dayValue?: string;
+  monthValue?: string;
 }
 
 interface ICurrencyWeather {
@@ -48,6 +47,8 @@ const Home: React.FC = () => {
   const [date, setDate] = useState<IDate>({});
   const [currencyWeather, setCurrecyWeather] = useState<ICurrencyWeather>({});
   const [modalFalied, setModalFalied] = useState(false);
+  const [modalMenu, setModalMenu] = useState(false);
+  const [modalExit, setModalExit] = useState(false);
 
   const navigation = useNavigation();
 
@@ -77,12 +78,11 @@ const Home: React.FC = () => {
 
         setLoading(false);
       },
-      error => {
-        console.log(error);
+      () => {
         setModalFalied(true);
       },
       {
-        timeout: 10000,
+        timeout: 20000,
       },
     );
   }, []);
@@ -109,11 +109,15 @@ const Home: React.FC = () => {
       locale: pt,
     });
 
-    const dayValue = format(newDate, "dd '/' MMMM", {
+    const dayValue = format(newDate, 'dd', {
       locale: pt,
     });
 
-    setDate({ dayName, dayValue });
+    const monthValue = format(newDate, 'MMMM', {
+      locale: pt,
+    });
+
+    setDate({ dayName, dayValue, monthValue });
   }
 
   useEffect(() => {
@@ -122,87 +126,135 @@ const Home: React.FC = () => {
   }, [CheckLocation]);
 
   return (
-    <Container>
-      {loading ? (
-        <ContainerLoading>
-          <ActivityIndicator size={70} color={colors.OrangePrimary} />
-          <TextLoading>Atualizando as informações...</TextLoading>
-        </ContainerLoading>
-      ) : (
-        <>
-          <ViewHeader>
-            <ButtomRefresh onPress={() => GetCurrentWeather()}>
-              <Icon name="refresh" />
-            </ButtomRefresh>
-            <TextDate>{date?.dayName}</TextDate>
-            <TextDate>{date?.dayValue}</TextDate>
+    <ScrollView
+      contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
+    >
+      <Container>
+        {loading ? (
+          <ContainerLoading>
+            <ActivityIndicator size={70} color={colors.OrangePrimary} />
+            <TextLoading>Atualizando as informações...</TextLoading>
+          </ContainerLoading>
+        ) : (
+          <>
+            <Header
+              dayText={String(date?.dayName)}
+              dayValue={String(date?.dayValue)}
+              monthText={String(date?.monthValue)}
+              tempText={String(
+                currencyWeather.temp && FormatKelvin(currencyWeather.temp),
+              )}
+              cityText={String(
+                currencyWeather.locale && currencyWeather.locale,
+              )}
+              countryText={String(
+                currencyWeather.country && currencyWeather.country,
+              )}
+              onAction={() => {
+                setModalMenu(true);
+              }}
+            />
 
-            <TextDegrees>
-              {`${currencyWeather.temp && FormatKelvin(currencyWeather.temp)}º`}
-            </TextDegrees>
+            <ViewCard>
+              <CardInfo
+                TextTitle="Temp. min"
+                TextInfo={`${
+                  currencyWeather.temp_min &&
+                  FormatKelvin(currencyWeather.temp_min)
+                }º`}
+                isMarginBottom
+              />
+              <CardInfo
+                TextTitle="Temp. max"
+                TextInfo={`${
+                  currencyWeather.temp_max &&
+                  FormatKelvin(currencyWeather.temp_max)
+                }º`}
+                isMarginBottom
+              />
+              <CardInfo
+                TextTitle="Umidade"
+                TextInfo={`${
+                  currencyWeather.humidity && currencyWeather.humidity
+                }%`}
+                isMarginBottom
+              />
+              <CardInfo
+                TextTitle="Pressão"
+                TextInfo={`${
+                  currencyWeather.pressure && currencyWeather.pressure
+                }hPa`}
+                isMarginBottom
+              />
+              <CardInfo
+                TextTitle="Velocidade do vento"
+                TextInfo={`${
+                  currencyWeather.speed && currencyWeather.speed
+                }Km/h`}
+                isMarginBottom
+              />
+            </ViewCard>
+          </>
+        )}
 
-            <ViewRow>
-              <Icon name="map-marker" />
-              <TextCity isCity>
-                {`${currencyWeather.locale && currencyWeather.locale}, `}
-              </TextCity>
-              <TextCity>
-                {currencyWeather.country && currencyWeather.country}
-              </TextCity>
-            </ViewRow>
-          </ViewHeader>
-          <ViewCard>
-            <CardInfo
-              TextTitle="Temp. min"
-              TextInfo={`${
-                currencyWeather.temp_min &&
-                FormatKelvin(currencyWeather.temp_min)
-              }º`}
-              isMarginBottom
-            />
-            <CardInfo
-              TextTitle="Temp. max"
-              TextInfo={`${
-                currencyWeather.temp_max &&
-                FormatKelvin(currencyWeather.temp_max)
-              }º`}
-              isMarginBottom
-            />
-            <CardInfo
-              TextTitle="Umidade"
-              TextInfo={`${
-                currencyWeather.humidity && currencyWeather.humidity
-              }%`}
-              isMarginBottom
-            />
-            <CardInfo
-              TextTitle="Pressão"
-              TextInfo={`${
-                currencyWeather.pressure && currencyWeather.pressure
-              }hPa`}
-              isMarginBottom
-            />
-            <CardInfo
-              TextTitle="Velocidade do vento"
-              TextInfo={`${currencyWeather.speed && currencyWeather.speed}Km/h`}
-              isMarginBottom
-            />
-          </ViewCard>
-        </>
-      )}
+        <Modal
+          show={modalFalied}
+          title="Atenção"
+          description="Não foi possível pegar a localização do dispositivo, tente novamente."
+          textSigleButton="Certo"
+          actionSigleButton={() => {
+            setLoading(true);
+            GetCurrentWeather();
+            setModalFalied(false);
+          }}
+        />
 
-      <Modal
-        show={modalFalied}
-        title="Atenção"
-        description="Não foi possível pegar a localização do dispositivo, verifique se o GPS está ativo e tente novamente!"
-        textSigleButton="Certo"
-        actionSigleButton={() => {
-          setLoading(true);
-          GetCurrentWeather();
-          setModalFalied(false);
-        }}
-      />
-    </Container>
+        <Modal isBottomModal show={modalMenu}>
+          <ButtomModalButtom
+            onPress={() => {
+              GetCurrentWeather();
+              setModalMenu(false);
+            }}
+          >
+            <TitleContent>Atualizar dados</TitleContent>
+          </ButtomModalButtom>
+          <LineView />
+
+          <ButtomModalButtom
+            onPress={() => {
+              setModalMenu(false);
+            }}
+          >
+            <TitleContent>Voltar</TitleContent>
+          </ButtomModalButtom>
+          <LineView />
+
+          <ButtomModalButtom
+            onPress={() => {
+              setModalMenu(false);
+              setModalExit(true);
+            }}
+          >
+            <TitleContent>Sair</TitleContent>
+          </ButtomModalButtom>
+        </Modal>
+
+        <Modal
+          title="Atenção"
+          description="Você realmente deseja sair?"
+          textSigleButton="OK"
+          twoButtons
+          textNoButton="Sim"
+          actionNoButton={() => {
+            setModalExit(false);
+            BackHandler.exitApp();
+          }}
+          textYesButton="Não"
+          actionYesButton={() => setModalExit(false)}
+          show={modalExit}
+        />
+      </Container>
+    </ScrollView>
   );
 };
 

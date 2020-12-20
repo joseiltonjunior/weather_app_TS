@@ -35,5 +35,5 @@ export const TextCard = styled.Text<IText>`
   font-size: ${responsiveSize(15)}px;
   align-self: flex-end;
   color: ${props =>
-    props.isValue ? colors.LightPrimary : colors.OrangePrimary};
+    props.isValue ? colors.OrangePrimary : colors.LightPrimary};
 `;
