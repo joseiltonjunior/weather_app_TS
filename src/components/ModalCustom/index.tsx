@@ -21,8 +21,8 @@ import {
 interface IModal extends ModalBaseProps {
   show: boolean;
   twoButtons?: boolean;
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   textSigleButton?: string;
   actionSigleButton?: any;
   textYesButton?: string;

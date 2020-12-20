@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { PERMISSIONS, request, RESULTS, check } from 'react-native-permissions';
 import { BackHandler } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Buttom from '../../components/Buttom';
 import Modal from '../../components/ModalCustom';
@@ -28,23 +29,33 @@ const AcessLocation: React.FC = () => {
   function AllowLocation() {
     try {
       setLoading(true);
-      check(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION).then(res => {
+      check(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION).then(async res => {
         if (res === RESULTS.GRANTED) {
           setLoading(false);
-          navigation.navigate('Home');
+          await AsyncStorage.setItem('acessLocation', 'true');
+          navigation.reset({
+            index: 0,
+            routes: [{ name: 'Home' }],
+          });
         } else if (res === RESULTS.BLOCKED) {
           setLoading(false);
           setModalBlock(true);
         } else if (res === RESULTS.DENIED) {
-          request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION).then(resRequest => {
-            if (resRequest === RESULTS.GRANTED) {
-              setLoading(false);
-              navigation.navigate('Home');
-            } else {
-              setLoading(false);
-              setModalDenied(true);
-            }
-          });
+          request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION).then(
+            async resRequest => {
+              if (resRequest === RESULTS.GRANTED) {
+                setLoading(false);
+                await AsyncStorage.setItem('acessLocation', 'true');
+                navigation.reset({
+                  index: 0,
+                  routes: [{ name: 'Home' }],
+                });
+              } else {
+                setLoading(false);
+                setModalDenied(true);
+              }
+            },
+          );
         }
       });
     } catch (error) {

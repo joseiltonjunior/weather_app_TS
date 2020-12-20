@@ -13,7 +13,7 @@ const Card: React.FC<ICard> = ({ TextTitle, TextInfo, isMarginBottom }) => {
     <Container isMarginBottom={isMarginBottom}>
       <ViewText>
         <TextCard>{TextTitle}</TextCard>
-        <TextCard>{TextInfo}</TextCard>
+        <TextCard isValue>{TextInfo}</TextCard>
       </ViewText>
     </Container>
   );

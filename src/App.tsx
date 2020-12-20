@@ -4,9 +4,11 @@ import React from 'react';
 
 import Routes from './routes';
 
+import './config/ReactotronConfig';
+
 import { Container, BarStatus } from './styles';
 
-const src: React.FC = () => {
+const App: React.FC = () => {
   return (
     <NavigationContainer>
       <BarStatus />
@@ -17,4 +19,6 @@ const src: React.FC = () => {
   );
 };
 
-export default src;
+const OverlayApp = console.tron.overlay(App);
+
+export default OverlayApp;
