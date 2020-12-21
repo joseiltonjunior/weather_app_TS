@@ -8,6 +8,7 @@ import {
   ViewRow,
   TextCity,
   TextDegrees,
+  ViewDegrees,
 } from './styles';
 
 interface IHeader {
@@ -18,17 +19,33 @@ interface IHeader {
   cityText: string;
   countryText: string;
   onAction: any;
+  description: string;
 }
 
 const Header: React.FC<IHeader> = ({
-  dayText,
+  // dayText,
   dayValue,
   monthText,
   tempText,
   cityText,
-  countryText,
+  // countryText,
+  description,
   onAction,
 }) => {
+  function formartDescription(value: string) {
+    if (value === 'clear sky') {
+      return 'Céu limpo';
+    }
+    if (value === 'few clouds') {
+      return 'Poucas nuvens';
+    }
+    if (value === 'scattered clouds') {
+      return 'Nuvens dispersas';
+    }
+
+    return true;
+  }
+
   return (
     <ViewHeader>
       <ButtomRefresh
@@ -37,17 +54,21 @@ const Header: React.FC<IHeader> = ({
       >
         <Icon name="navicon" />
       </ButtomRefresh>
-      <TextDate>{dayText}</TextDate>
-      <ViewRow>
-        <TextDate noCapitalize>{`${dayValue} de `}</TextDate>
-        <TextDate>{monthText}</TextDate>
-      </ViewRow>
-      <TextDegrees>{`${tempText}º`}</TextDegrees>
 
       <ViewRow>
         <Icon name="map-marker" />
-        <TextCity>{`${cityText}, `}</TextCity>
-        <TextCity isCountry>{countryText}</TextCity>
+        <TextCity>{cityText}</TextCity>
+      </ViewRow>
+
+      <ViewDegrees>
+        <TextDegrees>{`${tempText}°`}</TextDegrees>
+        <TextCity>{formartDescription(description)}</TextCity>
+      </ViewDegrees>
+
+      <TextDate>Hoje</TextDate>
+      <ViewRow>
+        <TextDate noCapitalize>{`${dayValue} de `}</TextDate>
+        <TextDate>{monthText}</TextDate>
       </ViewRow>
     </ViewHeader>
   );

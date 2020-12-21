@@ -1,5 +1,10 @@
 
-<h3 align="center">Weather App</h3>
+<h1 align="center">Weather App</h1>
+
+<h3 align="center">Telas</h3>
+<p align="center">
+  <img src="https://i.ibb.co/2W835Dt/Design-sem-nome.png" alt="telas" border="0">
+</p>
 
 
 ```sh
