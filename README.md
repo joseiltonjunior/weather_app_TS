@@ -3,7 +3,7 @@
 
 <h2 align="center">Telas</h2>
 <p align="center">
-  <img width="100%" height="100%" src="https://ibb.co/LYQdvLt" alt="telas"></a>
+  <img src="https://i.ibb.co/2W835Dt/Design-sem-nome.png" alt="telas" border="0">
 </p>
 
 
