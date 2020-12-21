@@ -28,9 +28,15 @@ export const TextCity = styled.Text<ITextCity>`
 
 export const TextDegrees = styled.Text`
   font-family: 'RobotoSlab-ExtraBold';
-  font-size: ${responsiveSize(70)}px;
+  font-size: ${responsiveSize(80)}px;
+  padding: 0;
   color: ${colors.OrangePrimary};
-  margin: ${responsiveSize(30)}px 0;
+`;
+
+export const ViewDegrees = styled.View`
+  margin: ${responsiveSize(50)}px 0 ${responsiveSize(65)}px 0;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const TextDate = styled.Text<ITextDate>`
@@ -56,5 +62,6 @@ export const ButtomRefresh = styled.TouchableOpacity.attrs({
   activeOpacity: 0.6,
 })`
   align-self: flex-end;
-  margin-right: ${responsiveSize(15)}px;
+  right: ${responsiveSize(15)}px;
+  position: absolute;
 `;

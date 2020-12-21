@@ -23,6 +23,9 @@ import {
   ButtomModalButtom,
   TitleContent,
   LineView,
+  ViewFooter,
+  TextFooter,
+  ViewRow,
 } from './styles';
 
 interface IDate {
@@ -40,6 +43,7 @@ interface ICurrencyWeather {
   humidity?: number;
   pressure?: number;
   speed?: number;
+  description?: string;
 }
 
 const Home: React.FC = () => {
@@ -53,6 +57,7 @@ const Home: React.FC = () => {
   const navigation = useNavigation();
 
   const GetCurrentWeather = useCallback(() => {
+    setLoading(true);
     Geolocation.getCurrentPosition(
       async ({ coords: { latitude, longitude } }) => {
         const { data } = await api.get(
@@ -63,6 +68,7 @@ const Home: React.FC = () => {
         const { speed } = data.wind;
         const { name: locale } = data;
         const { country } = data.sys;
+        const { description } = data.weather[0];
 
         setCurrecyWeather({
           country,
@@ -73,15 +79,17 @@ const Home: React.FC = () => {
           humidity,
           pressure,
           speed,
+          description,
         });
 
         setLoading(false);
       },
-      () => {
+      error => {
         setModalFalied(true);
+        console.tron.log(error);
       },
       {
-        timeout: 10000,
+        timeout: 20000,
       },
     );
   }, []);
@@ -148,6 +156,9 @@ const Home: React.FC = () => {
               countryText={String(
                 currencyWeather.country && currencyWeather.country,
               )}
+              description={String(
+                currencyWeather.description && currencyWeather.description,
+              )}
               onAction={() => {
                 setModalMenu(true);
               }}
@@ -159,7 +170,7 @@ const Home: React.FC = () => {
                 TextInfo={`${
                   currencyWeather.temp_min &&
                   FormatKelvin(currencyWeather.temp_min)
-                }º`}
+                }°`}
                 isMarginBottom
               />
               <CardInfo
@@ -167,7 +178,7 @@ const Home: React.FC = () => {
                 TextInfo={`${
                   currencyWeather.temp_max &&
                   FormatKelvin(currencyWeather.temp_max)
-                }º`}
+                }°`}
                 isMarginBottom
               />
               <CardInfo
@@ -192,6 +203,13 @@ const Home: React.FC = () => {
                 isMarginBottom
               />
             </ViewCard>
+
+            <ViewFooter>
+              <ViewRow>
+                <TextFooter>Dados fornecidos parcialmente por</TextFooter>
+                <TextFooter isName> OpenWeather</TextFooter>
+              </ViewRow>
+            </ViewFooter>
           </>
         )}
 
