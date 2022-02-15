@@ -10,11 +10,13 @@
 ```sh
 $ git clone https://github.com/joseiltonjunior/weather_app_TS.git
 
-$ cd weather_app_TS
+$ open paste: cd weather_app_TS
 
-$ yarn  or npm
+$ install dependencies: yarn
 
-$ yarn start or npm start
+$ run server: yarn start
+
+$open app: yarn android or yarn ios
 ```
 
 ## Credits
