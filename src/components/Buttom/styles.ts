@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
-import { responsiveSize } from '../../styles/responsive';
-import colors from '../../styles/colors';
+import { responsiveSize } from '~/styles/responsive';
+import colors from '~/styles/colors';
 
 export const Container = styled(RectButton)`
   width: 90%;

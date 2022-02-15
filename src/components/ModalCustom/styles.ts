@@ -1,8 +1,8 @@
 import styled from 'styled-components/native';
 import { Dimensions } from 'react-native';
 
-import { responsiveSize } from '../../styles/responsive';
-import colors from '../../styles/colors';
+import { responsiveSize } from '~/styles/responsive';
+import colors from '~/styles/colors';
 
 interface ITextButtons {
   textLight?: boolean;

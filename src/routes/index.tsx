@@ -1,10 +1,10 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import colors from '../styles/colors';
+import colors from '~/styles/colors';
 
-import Home from '../pages/Home';
-import AcessLocation from '../pages/AcessLocation';
+import Home from '~/pages/Home';
+import AcessLocation from '~/pages/AcessLocation';
 
 const App = createStackNavigator();
 

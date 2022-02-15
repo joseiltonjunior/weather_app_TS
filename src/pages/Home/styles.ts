@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
-import colors from '../../styles/colors';
-import { responsiveSize } from '../../styles/responsive';
+import colors from '~/styles/colors';
+import { responsiveSize } from '~/styles/responsive';
 
 interface ITextFooter {
   isName?: boolean;

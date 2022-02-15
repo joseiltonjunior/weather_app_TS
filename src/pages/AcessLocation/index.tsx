@@ -4,8 +4,8 @@ import { PERMISSIONS, request, RESULTS, check } from 'react-native-permissions';
 import { BackHandler } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import Buttom from '../../components/Buttom';
-import Modal from '../../components/ModalCustom';
+import Buttom from '~/components/Buttom';
+import Modal from '~/components/ModalCustom';
 
 import {
   Container,
