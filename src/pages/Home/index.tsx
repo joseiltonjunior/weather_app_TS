@@ -1,18 +1,17 @@
-/* eslint-disable radix */
-/* eslint-disable import/no-duplicates */
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { ActivityIndicator, ScrollView } from 'react-native';
+import { ActivityIndicator, ScrollView, BackHandler } from 'react-native';
 import { format } from 'date-fns';
-import { pt } from 'date-fns/locale';
+
 import Geolocation from '@react-native-community/geolocation';
-import { BackHandler } from 'react-native';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import colors from '../../styles/colors';
-import api from '../../services/consultWeatherApi';
-import CardInfo from '../../components/Card';
-import Modal from '../../components/ModalCustom';
+import ptBR from 'date-fns/locale/pt-BR/index';
+import colors from '~/styles/colors';
+import api from '~/services/consultWeatherApi';
+import CardInfo from '~/components/Card';
+import Modal from '~/components/ModalCustom';
 import Header from './Header';
 
 import {
@@ -112,15 +111,15 @@ const Home: React.FC = () => {
     const newDate = new Date();
 
     const dayName = format(newDate, 'EEEE', {
-      locale: pt,
+      locale: ptBR,
     });
 
     const dayValue = format(newDate, 'dd', {
-      locale: pt,
+      locale: ptBR,
     });
 
     const monthValue = format(newDate, 'MMMM', {
-      locale: pt,
+      locale: ptBR,
     });
 
     setDate({ dayName, dayValue, monthValue });

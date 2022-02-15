@@ -1,10 +1,10 @@
 import styled from 'styled-components/native';
 import AwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
-import { responsiveSize } from '../../styles/responsive';
-import colors from '../../styles/colors';
-import IconCustom from '../../components/IconCustom';
-import iconCity from '../../assets/city.svg';
+import { responsiveSize } from '~/styles/responsive';
+import colors from '~/styles/colors';
+import IconCustom from '~/components/IconCustom';
+import iconCity from '~/assets/city.svg';
 
 interface IText {
   isDescription?: boolean;

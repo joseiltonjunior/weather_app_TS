@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
-import colors from '../../styles/colors';
-import { responsiveSize } from '../../styles/responsive';
+import colors from '~/styles/colors';
+import { responsiveSize } from '~/styles/responsive';
 
 interface IContainer {
   isMarginBottom?: boolean;
@@ -14,7 +14,6 @@ interface IText {
 export const Container = styled.View<IContainer>`
   height: ${responsiveSize(50)}px;
   width: 90%;
-  /* background: ${colors.LightPrimary}; */
   border-color: ${colors.DarkPlaceholders};
   border-width: 1px;
   border-radius: ${responsiveSize(25)}px;

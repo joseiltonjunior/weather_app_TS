@@ -2,7 +2,7 @@ import React from 'react';
 import { RectButtonProperties } from 'react-native-gesture-handler';
 import { ActivityIndicator } from 'react-native';
 
-import colors from '../../styles/colors';
+import colors from '~/styles/colors';
 
 import { Container, TextButtom } from './styles';
 
